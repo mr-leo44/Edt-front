@@ -21,12 +21,6 @@ export default defineNuxtConfig({
       ],
     }
   },
-  css: ['~/assets/css/index.css'],
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    }
-  },
-  // modules: ["@pinia/nuxt", "@nuxt/icon"]
+  modules: [// "@pinia/nuxt", 
+  "@nuxt/icon", '@nuxtjs/tailwindcss']
 });
