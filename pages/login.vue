@@ -4,10 +4,10 @@
     <div
       class="md:absolute flex xl:right-16 bottom-0 md:bottom-auto md:right-8 items-center max-w-xl sm:max-w-3xl md:max-w-sm xl:max-w-lg w-full bg-white rounded-3xl mb-2 md:mb-0 px-8 py-6 text-gray-600">
       <div class="w-full">
-        <h3 class="text-2xl xl:text-3xl text-center font-bold mb-12">
+        <h3 class="text-2xl xl:text-3xl text-center font-bold mb-8">
           Se connecter à <span class="text-emerald-700">Wakati App</span>
         </h3>
-        <form @submit="submit" class="flex flex-col space-y-2">
+        <form @submit="submit" class="flex flex-col space-y-3">
           <FormField v-slot="{ componentField }" name="login">
             <FormItem>
               <FormLabel class="text-sm text-neutral-700 font-semibold">Username ou Email</FormLabel>
@@ -48,7 +48,7 @@
           En cliquant sur le bouton se connecter ci-dessous, vous acceptez <span class="text-emerald-700">les
             conditions de service</span> de wakati app
         </p>
-        <div class="text-center mt-12 mb-4 font-bold text-xs sm:text-sm">
+        <div class="text-center mt-8 mb-4 font-bold text-xs sm:text-sm">
           <span>Pas de compte? </span>
           <NuxtLink to="/register" class="text-emerald-700">
             S'inscrire
