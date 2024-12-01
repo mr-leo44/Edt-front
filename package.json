@@ -28,7 +28,6 @@
     "vue-sonner": "^1.2.5",
     "zod": "^3.23.8",
     "gsap": "^3.12.5",
-    "nuxt": "^3.14.0",
     "vue": "latest",
     "vue-router": "latest"
   },
