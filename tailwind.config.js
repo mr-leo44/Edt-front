@@ -7,6 +7,11 @@ module.exports = {
   prefix: "",
   
   theme: {
+    fontFamily: {
+      'sans': [
+        'Poppins'
+      ],
+    },
     container: {
       center: true,
       padding: "2rem",
