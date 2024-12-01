@@ -43,6 +43,18 @@
             connecter
           </Button>
         </form>
+        
+        <p class="my-4 text-xs text-center">
+          En cliquant sur le bouton se connecter ci-dessous, vous acceptez <span class="text-emerald-700">les
+            conditions de service</span> de wakati app
+        </p>
+        <div class="text-center mt-12 mb-4 font-bold text-xs sm:text-sm">
+          <span>Pas de compte? </span>
+          <NuxtLink to="/register" class="text-emerald-700">
+            S'inscrire
+          </NuxtLink>
+        </div>
+
       </div>
     </div>
   </div>
