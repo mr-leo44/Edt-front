@@ -13,7 +13,8 @@
               <Label class="text-sm font-semibold">Université</Label>
               <Popover v-model:open="isOpen">
                 <PopoverTrigger as-child>
-                  <Button variant="outline" class="w-full justify-start">
+                  <Button variant="outline"
+                    class="w-full justify-start text-neutral-700 hover:text-neutral-900 dark:bg-white border-neutral-600 focus:border-neutral-700">
                     {{ selectedUniversity ? universities.find((university) => university.name ===
                       selectedUniversity)?.name : "Choisir l'université" }}
                   </Button>
@@ -44,7 +45,8 @@
               <Label class="text-sm font-semibold">Faculté</Label>
               <Popover v-model:open="isFacultyOpen">
                 <PopoverTrigger as-child>
-                  <Button variant="outline" class="w-full justify-start">
+                  <Button variant="outline"
+                    class="w-full justify-start text-neutral-700 hover:text-neutral-900 dark:bg-white border-neutral-600 focus:border-neutral-700">
                     {{ selectedFaculty ? faculties.find((faculty) => faculty.name ===
                       selectedFaculty)?.name : "Choisir la faculté" }}
                   </Button>
@@ -74,7 +76,8 @@
               <Label class="text-sm font-semibold">Promotion</Label>
               <Popover v-model:open="isPromotionOpen">
                 <PopoverTrigger as-child>
-                  <Button variant="outline" class="w-full justify-start">
+                  <Button variant="outline"
+                    class="w-full justify-start text-neutral-700 hover:text-neutral-900 dark:bg-white border-neutral-600 focus:border-neutral-700">
                     {{ selectedPromotion ? promotions.find((promotion) => promotion.name ===
                       selectedPromotion)?.name : "Choisir la promotion" }}
                   </Button>
@@ -103,7 +106,7 @@
             </div>
             <div class="space-y-2 flex justify-end items-center">
               <Button variant="outline"
-                class="p-2.5 bg-emerald-500 rounded text-white hover:bg-emerald-700 hover:text-white font-semibold text-sm 2xl:text-md uppercase"
+                class="p-2.5 bg-emerald-500 rounded text-white hover:bg-emerald-700 hover:text-white font-semibold text-sm 2xl:text-md uppercase border-none"
                 :disabled="!formData.university_id || !formData.faculty_id || !formData.promotion_id"
                 @click="toNextStep">Suivant</Button>
             </div>
@@ -181,10 +184,10 @@
 
             <div class="flex justify-between items-center space-y-2 w-full">
               <Button variant="outline"
-                class="p-2.5 bg-emerald-500 rounded text-white hover:bg-emerald-700 hover:text-white font-semibold text-sm 2xl:text-md uppercase"
+                class="p-2.5 bg-emerald-500 rounded text-white hover:bg-emerald-700 hover:text-white font-semibold text-sm 2xl:text-md uppercase border-none"
                 @click="toPreviousStep">Précédent</Button>
               <Button variant="outline" type="submit"
-                class="p-2.5 bg-emerald-500 rounded text-white hover:bg-emerald-700 hover:text-white font-semibold text-sm 2xl:text-md uppercase"
+                class="p-2.5 bg-emerald-500 rounded text-white hover:bg-emerald-700 hover:text-white font-semibold text-sm 2xl:text-md uppercase border-none"
                 :disabled="!formData.name || !formData.username || !formData.email || !formData.password ||
                   !formData.password_confirmation || !formData.phone">S'inscrire</Button>
             </div>
@@ -312,4 +315,20 @@ const submit = () => {
 }
 </script>
 
-<style></style>
+<style>
+.animate-fade-in {
+  animation: fadeIn .5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
