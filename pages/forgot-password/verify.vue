@@ -18,7 +18,7 @@
           <PinInput id="pin-input" :disabled="isExpired" v-model="value" placeholder="○" @complete="handleComplete" :otp=true>
             <PinInputGroup class="flex justify-center items-center">
               <template v-for="(id, index) in 6" :key="id">
-                <PinInputInput :class="success ? 'border-emerald-500 focus:border-emerald-500' : 'border-neutral-600'" class="rounded-md text-center border w-10 h-10" :index="index" />
+                <PinInputInput :class="{ 'border-emerald-500 focus:border-emerald-500' : success, 'border-red-500 focus:border-red-500' : error , 'border-none cursor-not-allowed' : isExpired, 'border-neutral-600' : !isExpired && !error && !success  }" class="rounded-md text-center border w-10 h-10" :index="index" />
                 <template v-if="index !== 5">
                   <PinInputSeparator />
                 </template>
