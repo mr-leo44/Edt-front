@@ -7,7 +7,7 @@
         <h3 class="text-2xl xl:text-3xl text-center font-bold mb-8">
           Se connecter à <span class="text-emerald-700">Wakati App</span>
         </h3>
-        <form @submit="submit" class="flex flex-col space-y-3">
+        <form @submit.prevent="submit" class="flex flex-col space-y-3">
           <FormField v-slot="{ componentField }" name="login">
             <FormItem>
               <FormLabel class="text-sm text-neutral-700 font-semibold">Username ou Email</FormLabel>
@@ -30,7 +30,7 @@
           </FormField>
           <div class="flex justify-between items-center mt-3 mb-8">
             <div class="flex items-center space-x-2 font-medium text-xs sm:text-sm">
-              <Checkbox id="remember_me" v-model="formData.remember_me" />
+              <Checkbox id="remember_me" class="border-neutral-700" v-model="formData.remember_me" />
               <Label for="remember_me">Se souvenir de moi</Label>
             </div>
             <NuxtLink to="/forgot-password" class="font-medium text-xs sm:text-sm">
@@ -39,7 +39,7 @@
           </div>
 
           <Button type="submit"
-            class="p-3 w-full bg-emerald-700 rounded text-white font-semibold text-sm 2xl:text-md uppercase">Se
+            class="p-3 w-full bg-emerald-700 rounded text-white font-semibold text-sm 2xl:text-md uppercase border-none">Se
             connecter
           </Button>
         </form>
@@ -71,7 +71,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from '@/components/ui/form'
 
 useHead({
