@@ -14,9 +14,9 @@
               <Popover v-model:open="isOpen">
                 <PopoverTrigger as-child>
                   <Button variant="outline"
-                    class="w-full justify-start text-neutral-700 hover:text-neutral-900 dark:bg-white border-neutral-600 focus:border-neutral-700">
+                    class="w-full justify-start text-neutral-700 hover:text-neutral-950 dark:bg-white border-neutral-600 focus:border-neutral-700">
                     {{ selectedUniversity ? universities.find((university) => university.name ===
-                      selectedUniversity)?.name : "Choisir l'université" }}
+                      selectedUniversity)?.name : "" }}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent class="w-full p-0" align="start">
@@ -46,9 +46,9 @@
               <Popover v-model:open="isFacultyOpen">
                 <PopoverTrigger as-child>
                   <Button variant="outline"
-                    class="w-full justify-start text-neutral-700 hover:text-neutral-900 dark:bg-white border-neutral-600 focus:border-neutral-700">
+                    class="w-full justify-start text-neutral-700 hover:text-neutral-950 dark:bg-white border-neutral-600 focus:border-neutral-700">
                     {{ selectedFaculty ? faculties.find((faculty) => faculty.name ===
-                      selectedFaculty)?.name : "Choisir la faculté" }}
+                      selectedFaculty)?.name : "" }}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent class="w-full p-0" align="start">
@@ -77,9 +77,9 @@
               <Popover v-model:open="isPromotionOpen">
                 <PopoverTrigger as-child>
                   <Button variant="outline"
-                    class="w-full justify-start text-neutral-700 hover:text-neutral-900 dark:bg-white border-neutral-600 focus:border-neutral-700">
+                    class="w-full justify-start text-neutral-700 hover:text-neutral-950 dark:bg-white border-neutral-600 focus:border-neutral-700">
                     {{ selectedPromotion ? promotions.find((promotion) => promotion.name ===
-                      selectedPromotion)?.name : "Choisir la promotion" }}
+                      selectedPromotion)?.name : "" }}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent class="w-full p-0" align="start">
@@ -122,7 +122,7 @@
                   <FormLabel class="text-xs md:text-sm text-neutral-700 font-semibold">Nom</FormLabel>
                   <FormControl>
                     <Input type="text"
-                      class="w-full p-2 sm:px-4 text-sm sm:text-md rounded placeholder-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
+                      class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                       v-model="formData.name" autocomplete="off" v-bind="componentField" />
                   </FormControl>
                 </FormItem>
@@ -132,18 +132,18 @@
                   <FormLabel class="text-xs md:text-sm text-neutral-700 font-semibold">Username</FormLabel>
                   <FormControl>
                     <Input type="text"
-                      class="w-full p-2 sm:px-4 text-sm sm:text-md rounded placeholder-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
+                      class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                       v-model="formData.username" autocomplete="off" v-bind="componentField" />
                   </FormControl>
                 </FormItem>
               </FormField>
             </div>
-            <FormField v-slot="{ componentField }" name="password">
+            <FormField v-slot="{ componentField }" name="email">
               <FormItem>
                 <FormLabel class="text-xs md:text-sm text-neutral-700 font-semibold">Email</FormLabel>
                 <FormControl>
                   <Input type="email"
-                    class="w-full p-2 sm:px-4 text-sm sm:text-md rounded placeholder-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
+                    class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                     v-model="formData.email" autocomplete="off" v-bind="componentField" />
                 </FormControl>
               </FormItem>
@@ -154,7 +154,7 @@
                   <FormLabel class="text-xs md:text-sm text-neutral-700 font-semibold">Mot de passe</FormLabel>
                   <FormControl>
                     <Input type="password"
-                      class="w-full p-2 sm:px-4 text-sm sm:text-md rounded placeholder-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
+                      class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                       v-model="formData.password" autocomplete="off" v-bind="componentField" />
                   </FormControl>
                 </FormItem>
@@ -165,7 +165,7 @@
                   </FormLabel>
                   <FormControl>
                     <Input type="password"
-                      class="w-full p-2 sm:px-4 text-sm sm:text-md rounded placeholder-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
+                      class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                       v-model="formData.password_confirmation" autocomplete="off" v-bind="componentField" />
                   </FormControl>
                 </FormItem>
@@ -176,7 +176,7 @@
                 <FormLabel class="text-xs md:text-sm text-neutral-700 font-semibold">Téléphone</FormLabel>
                 <FormControl>
                   <Input type="text"
-                    class="w-full p-2 sm:px-4 text-sm sm:text-md rounded placeholder-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
+                    class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                     v-model="formData.phone" autocomplete="off" v-bind="componentField" />
                 </FormControl>
               </FormItem>
@@ -185,11 +185,15 @@
             <div class="flex justify-between items-center space-y-2 w-full">
               <Button variant="outline"
                 class="p-2.5 bg-emerald-500 rounded text-white hover:bg-emerald-700 hover:text-white font-semibold text-sm 2xl:text-md uppercase border-none"
-                @click="toPreviousStep">Précédent</Button>
+                @click="toPreviousStep">
+                Précédent
+              </Button>
               <Button variant="outline" type="submit"
                 class="p-2.5 bg-emerald-500 rounded text-white hover:bg-emerald-700 hover:text-white font-semibold text-sm 2xl:text-md uppercase border-none"
                 :disabled="!formData.name || !formData.username || !formData.email || !formData.password ||
-                  !formData.password_confirmation || !formData.phone">S'inscrire</Button>
+                  !formData.password_confirmation || !formData.phone">
+                S'inscrire
+              </Button>
             </div>
           </form>
         </div>
@@ -301,17 +305,17 @@ const toNextStep = () => {
   currentStep.value++
 }
 
-const submit = () => {
-  // try {
-  console.log(JSON.parse(JSON.stringify(formData)))
-  // await new Promise((resolve) => {
-  //   setTimeout(resolve, 1000)
-  // })
+const submit = async () => {
+  try {
+    console.log(JSON.parse(JSON.stringify(formData)))
+    await new Promise((resolve) => {
+      setTimeout(resolve, 1000)
+    })
 
-  // router.push(`students/${formData.username}`)
-  // } catch (error) {
-  // console.error('Erreur de soumission :', error);
-  // }
+    router.push(`students/${formData.username}`)
+  } catch (error) {
+    console.error('Erreur de soumission :', error);
+  }
 }
 </script>
 
