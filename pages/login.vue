@@ -39,11 +39,11 @@
           </div>
 
           <Button type="submit"
-            class="p-3 w-full bg-emerald-700 rounded text-white font-semibold text-sm 2xl:text-md uppercase border-none">Se
-            connecter
+            class="p-3 bg-emerald-500 rounded text-white hover:bg-emerald-700 hover:text-white font-semibold text-sm 2xl:text-md uppercase border-none">
+            Se connecter
           </Button>
         </form>
-        
+
         <p class="my-4 text-xs text-center">
           En cliquant sur le bouton se connecter ci-dessous, vous acceptez <span class="text-emerald-700">les
             conditions de service</span> de wakati app
