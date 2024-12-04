@@ -12,7 +12,7 @@
           Choisissez un nouveau mot de passe sécurisé pour protéger votre compte. Assurez-vous de respecter
           les critères de sécurité.
         </p>
-        <form @submit.prevent="submit" class="flex flex-col space-y-3">
+        <form @submit="onSubmit" class="flex flex-col space-y-3">
           <div class="space-y-3 w-full">
             <FormField v-slot="{ componentField }" name="password">
               <FormItem>
@@ -22,9 +22,9 @@
                     class="w-full p-2 sm:px-4 text-sm sm:text-md rounded placeholder-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                     v-model="formData.password" autocomplete="off" v-bind="componentField" />
                 </FormControl>
+                <FormMessage class="text-xs text-red-500" />
               </FormItem>
             </FormField>
-
             <FormField v-slot="{ componentField }" name="password_confirmation">
               <FormItem>
                 <FormLabel class="text-sm text-neutral-700 font-semibold">Confirmer mot de passe</FormLabel>
@@ -33,6 +33,7 @@
                     class="w-full p-2 sm:px-4 text-sm sm:text-md rounded placeholder-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                     v-model="formData.password_confirmation" autocomplete="off" v-bind="componentField" />
                 </FormControl>
+                <FormMessage class="text-xs text-red-500" />
               </FormItem>
             </FormField>
             <Button
@@ -49,15 +50,13 @@
 
 <script lang="ts" setup>
 import { ref } from "vue"
+import { useForm } from "vee-validate"
+import { toTypedSchema } from "@vee-validate/zod"
+import * as z from "zod"
 import { useRouter } from "vue-router"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@/components/ui/form'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 
 useHead({
   title: "Wakati App | Réinitialiser mot de passe"
@@ -70,10 +69,19 @@ const formData = reactive({
   password_confirmation: '',
 })
 
-const submit = () => {
+const formSchema = toTypedSchema(z.object({
+  password: z.string().min(1, "Champ obligatoire").min(8, 'Minimum 8 caractères').regex(/[A-Z]/, 'Au moins une majuscule').regex(/\d/, 'Au moins un chiffre').regex(/[!$@#?&*%]/, 'Au moins un caractère spécial'),
+  password_confirmation: z.string().min(1, "Champ obligatoire"),
+}).refine((data) => data.password === data.password_confirmation, { path: ["password_confirmation"], message: "Mot de passe différents" }))
+
+const { isFieldDirty, handleSubmit } = useForm({
+  validationSchema: formSchema,
+})
+
+const onSubmit = handleSubmit((values) => {
   console.log(JSON.parse(JSON.stringify(formData)))
   router.push(`/login`)
-}
+})
 </script>
 
 <style></style>
