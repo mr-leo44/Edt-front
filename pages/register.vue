@@ -115,7 +115,7 @@
 
         <div v-if="currentStep === 2" class="space-y-2 animate-fade-in">
           <h2 class="text-md font-bold mb-2">Informations personnelles</h2>
-          <form @submit.prevent="submit" class="flex flex-col space-y-1">
+          <form @submit="onSubmit" class="flex flex-col space-y-1">
             <div class="flex gap-2 flex-col md:flex-row w-full">
               <FormField v-slot="{ componentField }" name="name">
                 <FormItem>
@@ -125,6 +125,7 @@
                       class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                       v-model="formData.name" autocomplete="off" v-bind="componentField" />
                   </FormControl>
+                  <FormMessage class="text-xs text-red-500" />
                 </FormItem>
               </FormField>
               <FormField v-slot="{ componentField }" name="username">
@@ -135,6 +136,7 @@
                       class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                       v-model="formData.username" autocomplete="off" v-bind="componentField" />
                   </FormControl>
+                  <FormMessage class="text-xs text-red-500" />
                 </FormItem>
               </FormField>
             </div>
@@ -146,6 +148,7 @@
                     class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                     v-model="formData.email" autocomplete="off" v-bind="componentField" />
                 </FormControl>
+                <FormMessage class="text-xs text-red-500" />
               </FormItem>
             </FormField>
             <div class="flex gap-2 flex-col md:flex-row w-full">
@@ -157,6 +160,7 @@
                       class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                       v-model="formData.password" autocomplete="off" v-bind="componentField" />
                   </FormControl>
+                  <FormMessage class="text-xs text-red-500" />
                 </FormItem>
               </FormField>
               <FormField v-slot="{ componentField }" name="password_confirmation">
@@ -168,6 +172,7 @@
                       class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                       v-model="formData.password_confirmation" autocomplete="off" v-bind="componentField" />
                   </FormControl>
+                  <FormMessage class="text-xs text-red-500" />
                 </FormItem>
               </FormField>
             </div>
@@ -179,6 +184,7 @@
                     class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                     v-model="formData.phone" autocomplete="off" v-bind="componentField" />
                 </FormControl>
+                <FormMessage class="text-xs text-red-500" />
               </FormItem>
             </FormField>
 
@@ -216,10 +222,13 @@
 <script lang="ts" setup>
 import { ref } from "vue"
 import { useRouter } from "vue-router"
+import { useForm } from "vee-validate"
+import { toTypedSchema } from "@vee-validate/zod"
+import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command"
-import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 
 useHead({
@@ -297,6 +306,18 @@ const formData = reactive({
   type: 'student',
 })
 
+const formSchema = toTypedSchema(z.object({
+  name: z.string().min(1, { message: "Champ obligatoire" }).min(3, 'Minimum 3 caractères'),
+  username: z.string().min(1, "Champ obligatoire").min(3, 'Minimum 3 caractères'),
+  email: z.string().min(1, "Champ obligatoire").email('Cet email est invalide'),
+  phone: z.string().min(1, "Champ obligatoire").min(10, 'Minimum 10 chiffres').max(15, 'Maximum 15 chiffres').regex(/^\d+$/, 'Ne doit contenir que des chiffres'),
+  password: z.string().min(1, "Champ obligatoire").min(8, 'Minimum 8 caractères').regex(/[A-Z]/, 'Au moins une majuscule').regex(/\d/, 'Au moins un chiffre').regex(/[!$@#?&*%]/, 'Au moins un caractère spécial'),
+  password_confirmation: z.string().min(1, "Champ obligatoire"),
+}).refine((data) => data.password === data.password_confirmation, { path: ["password_confirmation"], message: "Mot de passe différents" }))
+
+const { isFieldDirty, handleSubmit } = useForm({
+  validationSchema: formSchema,
+})
 const toPreviousStep = () => {
   currentStep.value--
 }
@@ -305,18 +326,15 @@ const toNextStep = () => {
   currentStep.value++
 }
 
-const submit = async () => {
+const onSubmit = handleSubmit((values) => {
   try {
     console.log(JSON.parse(JSON.stringify(formData)))
-    await new Promise((resolve) => {
-      setTimeout(resolve, 1000)
-    })
-
     router.push(`students/${formData.username}`)
   } catch (error) {
-    console.error('Erreur de soumission :', error);
+    console.error('Erreur de soumission :', error)
   }
-}
+})
+
 </script>
 
 <style>
