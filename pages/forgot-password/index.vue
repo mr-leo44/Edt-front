@@ -12,7 +12,7 @@
           Veuillez entrer l'adresse email associée à votre compte. un code de vérification vous sera envoyé pour
           confirmer votre identité.
         </p>
-        <form @submit.prevent="submit" class="flex flex-col">
+        <form @submit="onSubmit" class="flex flex-col">
           <div class="space-y-3 w-full">
             <FormField v-slot="{ componentField }" name="email">
               <FormItem>
@@ -22,6 +22,7 @@
                     class="w-full p-2 sm:px-4 text-sm sm:text-md rounded text-neutral-800 border border-neutral-600 focus:border-neutral-700 outline-none"
                     v-model="formData.email" autocomplete="off" v-bind="componentField" />
                 </FormControl>
+                <FormMessage class="text-xs text-red-500" />
               </FormItem>
             </FormField>
 
@@ -39,8 +40,11 @@
 <script lang="ts" setup>
 import { ref } from "vue"
 import { useRouter } from "vue-router"
+import { useForm } from "vee-validate"
+import { toTypedSchema } from "@vee-validate/zod"
+import * as z from "zod"
 import { Button } from "@/components/ui/button"
-import { FormField, FormItem, FormControl, FormLabel } from "@/components/ui/form";
+import { FormField, FormItem, FormControl, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
 useHead({
@@ -52,7 +56,15 @@ const formData = reactive({
   email: '',
 })
 
-const submit = () => {
+const formSchema = toTypedSchema(z.object({
+  email: z.string().min(1, "Champ obligatoire").email('Cet email est invalide'),
+}))
+
+const { isFieldDirty, handleSubmit } = useForm({
+  validationSchema: formSchema,
+})
+
+const onSubmit = handleSubmit(() => {
   console.log(JSON.parse(JSON.stringify(formData)))
    setTimeout(() => {
     router.push({
@@ -60,7 +72,7 @@ const submit = () => {
       query: { email: formData.email }
     })
    }, 1000)
-}
+})
 </script>
 
 <style></style>
