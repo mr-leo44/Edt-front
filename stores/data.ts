@@ -161,6 +161,9 @@ export const useDataStore = defineStore("data", {
       },
       { id: 17, name: "L3 Raffinage", sigle: "l3rafin", faculty_id: 5 },
       { id: 18, name: "L1 ELectronique", sigle: "l1electro", faculty_id: 8 },
+      { id: 19, name: "L1 Math", sigle: "l1math", faculty_id: 2 },
+      { id: 20, name: "L2 Math", sigle: "l2math", faculty_id: 2 },
+      { id: 21, name: "L3 Math", sigle: "l3math", faculty_id: 2 },
     ] as Promotion[],
     accounts: [
       {
