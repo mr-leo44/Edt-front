@@ -138,9 +138,7 @@ const { handleSubmit } = useForm({
   validationSchema: formSchema,
 });
 
-const onSubmit = handleSubmit((values) => {
-  console.log(values);
-  
+const onSubmit = handleSubmit((values) => { 
   const result = authStore.loginUser({
     login: values.loginData,
     password: values.password,
@@ -148,6 +146,10 @@ const onSubmit = handleSubmit((values) => {
   })
 
   if(result.success) {
+    toast({
+      title: 'Félicitation!',
+      description: result.message,
+    })
     router.push(`students/${result.user?.username}`)
   } else {
     toast({

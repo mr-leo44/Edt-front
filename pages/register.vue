@@ -509,6 +509,10 @@ const onSubmit = handleSubmit((values) => {
   })
   
   if(result.success) {
+    toast({
+      title: 'Félicitation!',
+      description: result.message,
+    })
     router.push(`students/${values.username}`)
   } else {
     toast({
