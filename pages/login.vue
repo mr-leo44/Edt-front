@@ -1,4 +1,5 @@
 <template>
+  <Toaster />
   <div
     class="flex justify-center items-end md:items-center h-screen bg-no-repeat bg-center md:bg-left-top bg-cover bg-[url('~/assets/images/login-bg-xs-sm.png')] md:bg-[url('~/assets/images/login-bg.jpg')] md:relative"
   >
@@ -6,7 +7,7 @@
       class="md:absolute flex xl:right-16 bottom-0 md:bottom-auto md:right-8 items-center max-w-xl sm:max-w-3xl md:max-w-sm xl:max-w-lg w-full bg-white rounded-3xl mb-2 md:mb-0 px-8 py-6 text-gray-600"
     >
       <div class="w-full">
-        <h3 class="text-2xl xl:text-3xl text-center font-bold mb-8">
+        <h3 class="md:text-2xl xl:text-3xl text-xl text-center font-bold mb-8">
           Se connecter à <span class="text-emerald-700">Wakati App</span>
         </h3>
         <form @submit="onSubmit" class="flex flex-col space-y-3">
@@ -105,7 +106,6 @@ import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import * as z from "zod";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   FormControl,
@@ -113,6 +113,8 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import { Toaster } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/toast/use-toast";
 
 import { useAuthStore } from "~/stores/auth";
 
@@ -120,6 +122,7 @@ useHead({
   title: "Wakati App | login",
 });
 
+const { toast } = useToast()
 const authStore = useAuthStore()
 const router = useRouter();
 
@@ -145,10 +148,13 @@ const onSubmit = handleSubmit((values) => {
   })
 
   if(result.success) {
-    console.log(result.user)
     router.push(`students/${result.user?.username}`)
   } else {
-    console.error(result.message)
+    toast({
+      title: 'Une erreur est survenue!',
+      description: result.message,
+      variant: 'destructive',
+    })
   }
 });
 </script>
