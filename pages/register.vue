@@ -1,4 +1,5 @@
 <template>
+  <Toaster />
   <div
     class="flex justify-center items-end md:items-center h-screen bg-no-repeat bg-center md:bg-left-top bg-cover bg-[url('~/assets/images/register-bg-xs-sm.png')] md:bg-[url('~/assets/images/register-bg.png')] md:relative">
     <div
@@ -391,14 +392,16 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import { Toaster } from "@/components/ui/toast";
+import { useToast } from "@/components/ui/toast/use-toast";
 import { createReusableTemplate, useMediaQuery } from "@vueuse/core";
-import { toast } from "vue-sonner";
 import type { Faculty, Promotion } from "~/types/models";
 
 useHead({
   title: "Wakati App | register",
 });
 
+const { toast } = useToast()
 const authStore = useAuthStore();
 const dataStore = useDataStore();
 const router = useRouter();
@@ -504,10 +507,15 @@ const onSubmit = handleSubmit((values) => {
     promotion_id: formData.promotion_id as number,
     type: "student"
   })
-  console.log(formData, values)
   
   if(result.success) {
     router.push(`students/${values.username}`)
+  } else {
+    toast({
+      title: 'Une erreur est survenue!',
+      description: result.message,
+      variant: 'destructive',
+    })
   }
 })
 
