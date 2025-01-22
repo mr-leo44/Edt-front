@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
     "@nuxtjs/color-mode",
+    "nuxt-swiper",
   ],
   app: {
     head: {

@@ -21,6 +21,7 @@
     "gsap": "^3.12.5",
     "lucide-vue-next": "^0.456.0",
     "nuxt": "^3.14.159",
+    "nuxt-swiper": "^2.0.0",
     "pinia": "^2.3.0",
     "radix-vue": "^1.9.9",
     "shadcn-nuxt": "^0.11.2",
@@ -30,7 +31,6 @@
     "vee-validate": "^4.14.7",
     "vue": "latest",
     "vue-router": "latest",
-    "vue-sonner": "^1.2.5",
     "zod": "^3.23.8"
   },
   "overrides": {
