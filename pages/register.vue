@@ -513,7 +513,7 @@ const onSubmit = handleSubmit((values) => {
       title: 'Félicitation!',
       description: result.message,
     })
-    router.push(`students/${values.username}`)
+    router.push('/students')
   } else {
     toast({
       title: 'Une erreur est survenue!',
