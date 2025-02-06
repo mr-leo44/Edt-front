@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     fontFamily: {
       'sans': [
-        'Poppins'
+        'Figtree'
       ],
     },
     container: {
